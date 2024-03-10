@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TaskItem  from './TaskItem';
-
-function TaskMang() {
-    const [tasks, setTasks] = useState([
+import { useLocalStorage } from '../utils/useLocalStorage';
+interface Task {
+    id: number;
+    text: string;
+    completed: boolean;
+}
+const default_tasks: Task[] = [
     {
     id: 1,
     text: 'Doctor Appointment',
@@ -13,7 +17,9 @@ function TaskMang() {
     text: 'Meeting at School',
     completed: false
     }
-    ]);
+    ];
+function TaskMang() {
+    const [tasks, setTasks]  = useLocalStorage('tasks', default_tasks);
     
     const [text, setText] = useState('');
    function addTask(text: string) {
